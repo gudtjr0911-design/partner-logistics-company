@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>파트너 물류 - 신뢰와 속도의 종합 물류 파트너</title>
+    
+    <!-- Google Fonts for Modern Korean & English Design -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae2fd',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        darkslate: {
+                            800: '#1e293b',
+                            900: '#0f172a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased overflow-x-hidden">
+
+    <!-- Custom Beautiful Modal for Form Submissions (No Alert used) -->
+    <div id="customAlert" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl transform scale-95 transition-all duration-300" id="alertBox">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-green-500 text-3xl">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-center text-slate-900 mb-2">지원이 접수되었습니다</h3>
+            <p class="text-slate-600 text-center mb-6 leading-relaxed">
+                파트너 물류 채용 담당자가 기재해 주신 연락처로 영업일 기준 24시간 이내에 신속히 연락을 드릴 예정입니다. 파트너 물류에 지원해 주셔서 진심으로 감사드립니다.
+            </p>
+            <button onclick="closeAlert()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 px-6 rounded-xl transition duration-300 shadow-lg shadow-brand-500/20">
+                확인 및 닫기
+            </button>
+        </div>
+    </div>
+
+    <!-- Floating Navigation Bar -->
+    <header class="fixed top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo & Name -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-brand-500/30 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-black tracking-tight text-brand-900 group-hover:text-brand-600 transition-colors">파트너 물류</span>
+                        <p class="text-[10px] text-slate-400 font-bold tracking-widest uppercase -mt-1 font-poppins">Partner Logistics</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="#about" class="text-slate-600 hover:text-brand-600 font-medium transition-colors">회사 소개</a>
+                    <a href="#services" class="text-slate-600 hover:text-brand-600 font-medium transition-colors">지원 목록</a>
+                    <a href="#calculator" class="text-slate-600 hover:text-brand-600 font-medium transition-colors">수익 정산기</a>
+                    <a href="#apply" class="text-slate-600 hover:text-brand-600 font-medium transition-colors">지원하기</a>
+                </nav>
+
+                <!-- Contact and CTA -->
+                <div class="hidden lg:flex items-center gap-4">
+                    <a href="tel:051-711-2311" class="text-slate-700 hover:text-brand-600 font-bold flex items-center gap-2 transition-colors">
+                        <i class="fa-solid fa-phone-volume text-brand-500"></i>
+                        <span>051-711-2311</span>
+                    </a>
+                    <a href="#apply" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-5 py-2.5 rounded-xl transition duration-300 shadow-md hover:shadow-brand-500/20">
+                        간편 기사님 등록
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 text-slate-600 hover:text-brand-600 focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl" id="menuIcon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-slate-100 px-4 py-6 space-y-4 shadow-lg">
+            <a href="#about" class="block text-slate-700 hover:text-brand-600 font-bold text-lg px-2" onclick="toggleMenu()">회사 소개</a>
+            <a href="#services" class="block text-slate-700 hover:text-brand-600 font-bold text-lg px-2" onclick="toggleMenu()">지원 목록</a>
+            <a href="#calculator" class="block text-slate-700 hover:text-brand-600 font-bold text-lg px-2" onclick="toggleMenu()">수익 정산기</a>
+            <a href="#apply" class="block text-slate-700 hover:text-brand-600 font-bold text-lg px-2" onclick="toggleMenu()">지원하기</a>
+            <div class="border-t border-slate-100 pt-4 mt-4 flex flex-col gap-4">
+                <a href="tel:051-711-2311" class="flex items-center justify-center gap-2 text-slate-800 font-bold bg-slate-100 py-3 rounded-xl">
+                    <i class="fa-solid fa-phone text-brand-600"></i>
+                    <span>051-711-2311</span>
+                </a>
+                <a href="#apply" class="w-full text-center bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl shadow-lg" onclick="toggleMenu()">
+                    기사님 지원하기
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-24 md:pt-40 md:pb-36 bg-darkslate-900 overflow-hidden">
+        <!-- Background Image overlay -->
+        <div class="absolute inset-0 opacity-25 mix-blend-multiply bg-center bg-cover scale-105 transition-all duration-1000" style="background-image: url('watermarked_img_15048575921270755714.png.png');"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-darkslate-900 via-darkslate-900/90 to-transparent"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-12 gap-12 items-center">
+            <!-- Left Narrative -->
+            <div class="md:col-span-7 text-white space-y-6 z-10">
+                <div class="inline-flex items-center gap-2 bg-brand-600/20 border border-brand-500/30 px-4 py-1.5 rounded-full text-brand-400 font-semibold text-sm">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>정식 사업자 등록 승인 화물운송 지원 브랜드</span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15]">
+                    안정적인 물량,<br>
+                    <span class="text-brand-500">파트너 물류</span>와 함께할<br>
+                    정예 기사님을 찾습니다.
+                </h1>
+                <p class="text-slate-300 text-lg sm:text-xl font-normal leading-relaxed max-w-xl">
+                    부산 해운대 센텀 기반, 화물운송지원 및 전국 종합 유통의 리더. 1톤 소형 배송부터 5톤 광역 윙바디까지, 맞춤형 인프라와 체계적인 상생 시스템을 보장합니다.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#apply" class="bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-lg px-8 py-4 rounded-xl transition duration-300 shadow-lg shadow-brand-500/30 flex items-center gap-3">
+                        <span>지금 기사님 지원하기</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#services" class="bg-slate-800/80 hover:bg-slate-800 border border-slate-700 text-white font-bold text-lg px-8 py-4 rounded-xl transition duration-300">
+                        운송 지원 정보 보기
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Right Card Panel (Benefits Summary) -->
+            <div class="md:col-span-5 z-10">
+                <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-3xl p-8 text-white space-y-6 shadow-2xl">
+                    <h3 class="text-2xl font-bold border-b border-white/10 pb-4 flex items-center gap-3">
+                        <i class="fa-solid fa-circle-check text-brand-500"></i>
+                        <span>기사님들을 위한 약속</span>
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-brand-600/30 rounded-xl flex items-center justify-center text-brand-400 flex-shrink-0">
+                                <i class="fa-solid fa-money-check-dollar"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">최적의 단가 및 신속한 정산</h4>
+                                <p class="text-sm text-slate-300 mt-1">체계적인 거래 구조와 투명한 정산 절차로 안정적인 고수익을 드립니다.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-brand-600/30 rounded-xl flex items-center justify-center text-brand-400 flex-shrink-0">
+                                <i class="fa-solid fa-calendar-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">끊김 없는 안정적 고정물량</h4>
+                                <p class="text-sm text-slate-300 mt-1">전국 단위 기업 물류 협약을 바탕으로 고정 노선 및 원활한 회차를 지원합니다.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-brand-600/30 rounded-xl flex items-center justify-center text-brand-400 flex-shrink-0">
+                                <i class="fa-solid fa-headset"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">1:1 전담 밀착 원스톱 케어</h4>
+                                <p class="text-sm text-slate-300 mt-1">서류 대행부터 운행 관리, 세무 정산 지원까지 전문가가 직접 전담 케어합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Introduction Section -->
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-600 font-extrabold tracking-widest text-sm uppercase">Company Overview</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2">안전과 신속, 그리고 상생의 리더십</h2>
+                <p class="text-slate-600 text-lg mt-4">
+                    파트너 물류는 기사님 한 분 한 분을 가장 가치 있는 파트너로 여기며, 신뢰 기반의 투명한 종합 운송 인프라를 설계합니다.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Visual Image Content (Required watermarked image placeholder here) -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl group">
+                        <img src="watermarked_img_15048575921270755714.png.png" alt="파트너 물류 종합 고속 네트워크" class="w-full object-cover h-[450px] group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8 text-white">
+                            <span class="bg-brand-600 px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider mb-2 inline-block">Real Network</span>
+                            <h3 class="text-2xl font-black">대한민국 전국망 물류 연결 노선</h3>
+                            <p class="text-slate-300 text-sm mt-1">도심 골목에서 전국 허브센터까지 하나로 이어지는 네트워크</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Company Narrative -->
+                <div class="lg:col-span-6 space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-black text-slate-900 flex items-center gap-3">
+                            <span class="w-8 h-1.5 bg-brand-600 rounded-full"></span>
+                            <span>파트너 물류가 약속하는 3가지 신뢰 가치</span>
+                        </h3>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-5">
+                            <span class="w-12 h-12 bg-blue-50 text-brand-600 font-extrabold text-xl rounded-2xl flex items-center justify-center shadow-sm flex-shrink-0">01</span>
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900">투명성 및 윤리 경영</h4>
+                                <p class="text-slate-600 mt-1">불필요한 중개 수수료를 과감하게 거둬내고, 정식 승인 규격에 의거한 투명한 배차 및 대금 결제 방식을 엄수합니다.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-5">
+                            <span class="w-12 h-12 bg-blue-50 text-brand-600 font-extrabold text-xl rounded-2xl flex items-center justify-center shadow-sm flex-shrink-0">02</span>
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900">대기업 직배송 라인 확보</h4>
+                                <p class="text-slate-600 mt-1">대형 유통 그룹 및 물류 허브 중심의 공고한 연계를 확보하여 안정성이 높고 변동 폭이 적은 고정수입 노선을 제공합니다.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-5">
+                            <span class="w-12 h-12 bg-blue-50 text-brand-600 font-extrabold text-xl rounded-2xl flex items-center justify-center shadow-sm flex-shrink-0">03</span>
+                            <div>
+                                <h4 class="text-lg font-bold text-slate-900">운행 편의 극대화</h4>
+                                <p class="text-slate-600 mt-1">각 기사님 상황에 알맞은 거주지 근접 배차 최적화를 지원하고, 전국 주요 거점 어디서든 안전하게 소통할 수 있는 핫라인을 지원합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Compact Official Information Text Box -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-600 text-lg">
+                                <i class="fa-solid fa-file-invoice"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-extrabold text-slate-900">투명하고 안전한 화물 지원 약속</h5>
+                                <p class="text-xs text-slate-500 mt-0.5">정식 사업자 등록 기준 법적 규격 및 세무 정산 완비</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            파트너 물류는 기사님과의 모든 계약 과정을 정식 등록된 기업 정보를 기반으로 공정하고 안전하게 체결합니다. 불필요한 알력이나 정보 왜곡 없이, 법적인 기준과 권익을 보장받으시며 운행하실 수 있는 투명한 화물 인프라를 상시 운용합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Showcase (지원 목록) -->
+    <section id="services" class="py-24 bg-slate-100 border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-600 font-extrabold tracking-widest text-sm uppercase">Recruitment Fleet</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2">톤수별 맞춤형 모집/지원 부문</h2>
+                <p class="text-slate-600 text-lg mt-4">
+                    기사님의 소유 차종 또는 희망 운영 방향성에 알맞은 체계를 선택하십시오. 정량화된 시스템과 전문화된 물류 관리가 뒷받침됩니다.
+                </p>
+            </div>
+
+            <!-- Service Fleet Card Layout -->
+            <div class="grid md:grid-cols-3 gap-8 items-stretch">
+                <!-- 1 Ton Card -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200/60 flex flex-col group hover:-translate-y-1">
+                    <div class="relative h-64 overflow-hidden bg-slate-100 flex items-center justify-center">
+                        <img src="1XHS.png.png" alt="1톤 소화물 배송 지원" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/eaeaea/333333?text=1-ton+Truck'">
+                        <div class="absolute top-4 left-4 bg-brand-600 text-white font-black text-sm px-4 py-1.5 rounded-full shadow-md">
+                            도심 특화형
+                        </div>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="bg-slate-100 text-slate-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase">1T Single Cab</span>
+                                <span class="text-brand-600 font-extrabold text-sm"><i class="fa-solid fa-bolt"></i> 라스트마일</span>
+                            </div>
+                            <h3 class="text-2xl font-black text-slate-900 mb-4">1톤 소화물 배송</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                                골목길 및 아파트 단지 등 좁은 골목에 용이한 최고의 기동성. 신선식품 라스트마일 배송, 가맹점 부자재 등의 고정 수량과 빠른 회전율을 통해 안정적인 지속 성장을 이끌어 냅니다.
+                            </p>
+                        </div>
+                        <div class="border-t border-slate-100 pt-6 mt-6">
+                            <h4 class="text-xs font-black text-slate-400 uppercase tracking-wider mb-3">주요 추천 대상</h4>
+                            <ul class="space-y-2 text-sm text-slate-700">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500"></i> 초기 진입 장벽이 낮고 간편한 배송 운전</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500"></i> 거주지 반경 단거리 및 정시 출퇴근 선호</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-500"></i> 주야간 고정 노선 운영 기사님</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2.5 Ton Card -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200/60 flex flex-col group hover:-translate-y-1">
+                    <div class="relative h-64 overflow-hidden bg-slate-100 flex items-center justify-center">
+                        <img src="2.5.png.png" alt="2.5톤 비지니스 운송" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/eaeaea/333333?text=2.5-ton+Truck'">
+                        <div class="absolute top-4 left-4 bg-amber-500 text-white font-black text-sm px-4 py-1.5 rounded-full shadow-md">
+                            강력 추천
+                        </div>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="bg-slate-100 text-slate-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase">2.5T Intermediate</span>
+                                <span class="text-amber-500 font-extrabold text-sm"><i class="fa-solid fa-star"></i> 비즈니스 최적화</span>
+                            </div>
+                            <h3 class="text-2xl font-black text-slate-900 mb-4">2.5톤 비지니스 운송</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                                1톤의 부족함과 5톤의 비대함을 완벽히 보완한 비지니스 하이브리드 솔루션. 프랜차이즈 식자재 유통 및 중대형 기업 화물 운송의 중추 역할을 수행하여 중장거리 경제성을 한층 올렸습니다.
+                            </p>
+                        </div>
+                        <div class="border-t border-slate-100 pt-6 mt-6">
+                            <h4 class="text-xs font-black text-slate-400 uppercase tracking-wider mb-3">주요 추천 대상</h4>
+                            <ul class="space-y-2 text-sm text-slate-700">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-500"></i> 기업 전담 화물 배차 및 안정적 용역비 보장</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-500"></i> 부피 대비 중량이 적절한 기업 물류 최적화</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-amber-500"></i> 중장거리 혼적 및 고수입 복합 물량 희망</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5 Ton Card -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200/60 flex flex-col group hover:-translate-y-1">
+                    <div class="relative h-64 overflow-hidden bg-slate-100 flex items-center justify-center">
+                        <img src="Gemini_Generated_Image_fwdyp1fwdyp1fwdy.png.png" alt="5톤 윙바디" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/eaeaea/333333?text=5-ton+Wingbody'">
+                        <div class="absolute top-4 left-4 bg-emerald-600 text-white font-black text-sm px-4 py-1.5 rounded-full shadow-md">
+                            광역 프리미엄
+                        </div>
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="bg-slate-100 text-slate-700 text-xs font-bold px-2.5 py-1 rounded-md uppercase">5T Wingbody Heavy</span>
+                                <span class="text-emerald-600 font-extrabold text-sm"><i class="fa-solid fa-money-bill-trend-up"></i> 초고수익 보장</span>
+                            </div>
+                            <h3 class="text-2xl font-black text-slate-900 mb-4">5톤 윙바디</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                                지게차 상하차에 가장 용이한 날개형 구조로 인력 노동 최소화. 장거리 고속 물류 중심의 고부가가치 운송 서비스로, 대량 파레트 화물 배차 및 정기 허브 연계를 통해 확실한 월 순수익을 달성합니다.
+                            </p>
+                        </div>
+                        <div class="border-t border-slate-100 pt-6 mt-6">
+                            <h4 class="text-xs font-black text-slate-400 uppercase tracking-wider mb-3">주요 추천 대상</h4>
+                            <ul class="space-y-2 text-sm text-slate-700">
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> 장거리 고속도로 주행 및 전국 연계 가능 기사님</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> 기계를 통한 상하차로 육체 피로도를 대폭 낮출 분</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> 월 천만 원대 이상의 확실한 고수익 총매출 목표</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Revenue Calculator & Qualification Checker -->
+    <section id="calculator" class="py-24 bg-darkslate-950 text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.1),transparent)] pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-16 items-center">
+                <!-- Calculator Tool Grid 5 columns -->
+                <div class="lg:col-span-6 bg-slate-900/60 backdrop-blur-md border border-slate-800 rounded-3xl p-8 shadow-2xl space-y-6">
+                    <div>
+                        <span class="text-brand-500 font-black text-sm uppercase tracking-wider">Estimate Income</span>
+                        <h3 class="text-3xl font-black text-white mt-1">기사님 월수익 시뮬레이션</h3>
+                        <p class="text-slate-400 text-sm mt-1">나의 주행 타입과 차량 스케일을 설정하고 예상 수입을 가늠하세요.</p>
+                    </div>
+
+                    <!-- Step 1 Select Vehicle -->
+                    <div class="space-y-3">
+                        <label class="text-sm font-bold text-slate-300 block">1. 지원 차종 및 세그먼트</label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button onclick="calcSelectType('1T')" id="btn-1T" class="py-3 px-4 bg-brand-600 border border-brand-500 text-white font-black rounded-2xl text-center transition-all">
+                                1톤 소형
+                            </button>
+                            <button onclick="calcSelectType('2.5T')" id="btn-2.5T" class="py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-bold rounded-2xl text-center transition-all">
+                                2.5톤 중형
+                            </button>
+                            <button onclick="calcSelectType('5T')" id="btn-5T" class="py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-bold rounded-2xl text-center transition-all">
+                                5톤 대형
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 Distance Slider -->
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-sm">
+                            <label class="font-bold text-slate-300">2. 일일 예상 운행거리 (왕복)</label>
+                            <span class="text-brand-400 font-bold" id="distDisplay">150 km</span>
+                        </div>
+                        <input type="range" id="rangeDist" min="50" max="500" step="10" value="150" class="w-full accent-brand-500 h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer" oninput="calculateEstimates()">
+                    </div>
+
+                    <!-- Step 3 Working Days Slider -->
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center text-sm">
+                            <label class="font-bold text-slate-300">3. 월간 근무 일수</label>
+                            <span class="text-brand-400 font-bold" id="daysDisplay">22 일</span>
+                        </div>
+                        <input type="range" id="rangeDays" min="15" max="26" step="1" value="22" class="w-full accent-brand-500 h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer" oninput="calculateEstimates()">
+                    </div>
+
+                    <!-- Calculated Result Output Board -->
+                    <div class="bg-darkslate-900/90 rounded-2xl p-6 border border-slate-800 space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                            <span class="text-sm font-medium text-slate-400">월 총 예상 운송료</span>
+                            <span class="text-xl font-bold text-white" id="grossRevenue">₩0 만원</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs text-slate-400">
+                            <span>예상 공제액 (유류비, 톨게이트, 정비비 등)</span>
+                            <span id="deductions">-₩0 만원</span>
+                        </div>
+                        <div class="flex justify-between items-end border-t border-brand-500/20 pt-4 mt-2">
+                            <span class="text-base font-extrabold text-brand-400">예상 월 순수입</span>
+                            <div class="text-right">
+                                <span class="text-3xl font-black text-brand-500 font-poppins" id="netProfit">₩0</span>
+                                <span class="text-sm font-bold text-brand-500 ml-0.5">만원</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Self Diagnostic Checker -->
+                <div class="lg:col-span-6 space-y-8">
+                    <div>
+                        <span class="text-brand-500 font-black text-sm uppercase tracking-wider">Fast Qualification Check</span>
+                        <h3 class="text-3xl sm:text-4xl font-black text-white mt-1">내가 물류 기사님이 될 수 있을까?</h3>
+                        <p class="text-slate-400 text-lg mt-4 leading-relaxed">
+                            운송 자격 조건이 갖춰져 있지 않으신 신규 지원자분도 지원 가능합니다. 파트너 물류가 면허 승인 및 화물자격 교육 일정 대행 지원 시스템을 갖추고 있으니 언제든지 문을 두드려 주십시오.
+                        </p>
+                    </div>
+
+                    <!-- Interactive Diagnostic List -->
+                    <div class="space-y-4">
+                        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 hover:border-brand-500/40 transition-colors">
+                            <div class="w-10 h-10 bg-brand-500/10 text-brand-400 rounded-xl flex items-center justify-center flex-shrink-0 text-lg">
+                                <i class="fa-solid fa-address-card"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-bold text-white text-base">운전면허증 보유</h4>
+                                <p class="text-slate-400 text-xs mt-0.5">1종 보통 이상 필수 소지 (대형 및 특수 우대)</p>
+                            </div>
+                            <i class="fa-solid fa-circle-check text-brand-500 text-xl"></i>
+                        </div>
+
+                        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 hover:border-brand-500/40 transition-colors">
+                            <div class="w-10 h-10 bg-brand-500/10 text-brand-400 rounded-xl flex items-center justify-center flex-shrink-0 text-lg">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-bold text-white text-base">화물운송 종사자 자격</h4>
+                                <p class="text-slate-400 text-xs mt-0.5">자격증 미소지시 임시 예약 및 교육 수료 지원</p>
+                            </div>
+                            <i class="fa-solid fa-circle-check text-brand-500 text-xl"></i>
+                        </div>
+
+                        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 flex items-center gap-4 hover:border-brand-500/40 transition-colors">
+                            <div class="w-10 h-10 bg-brand-500/10 text-brand-400 rounded-xl flex items-center justify-center flex-shrink-0 text-lg">
+                                <i class="fa-solid fa-truck"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <h4 class="font-bold text-white text-base">차량 보유 여부 무관</h4>
+                                <p class="text-slate-400 text-xs mt-0.5">본인 차량 즉시 투입 환영 / 차량 위탁 장기임대 매칭 가능</p>
+                            </div>
+                            <i class="fa-solid fa-circle-check text-brand-500 text-xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form Section (지원하기) -->
+    <section id="apply" class="py-24 bg-white relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-brand-600 font-extrabold tracking-widest text-sm uppercase">Quick Application</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2">온라인 간편 지원 접수</h2>
+                <p class="text-slate-600 text-lg mt-4">
+                    아래 항목을 빠짐없이 입력해 주시면 최적의 전담 상담원이 배치되어 운임 단가 분석 및 배차 경로 맞춤 상담을 안내해 드립니다.
+                </p>
+            </div>
+
+            <!-- Form Card container -->
+            <div class="bg-slate-50 border border-slate-200/60 rounded-3xl p-8 sm:p-12 shadow-xl">
+                <!-- Connect Formspree endpoint explicitly as action and method fallback -->
+                <form id="recruitmentForm" action="https://formspree.io/f/xlgyzvkn" method="POST" onsubmit="handleFormSubmit(event)" class="space-y-8">
+                    
+                    <!-- Hidden Config for Formspree custom email subject -->
+                    <input type="hidden" name="_subject" value="[파트너물류] 신규 기사님 간편 지원서 접수">
+                    
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <!-- Name Field -->
+                        <div class="space-y-2">
+                            <label for="applicantName" class="text-sm font-extrabold text-slate-700 flex items-center gap-1.5">
+                                <span>이름</span>
+                                <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+                                <input type="text" id="applicantName" name="name" required placeholder="성명을 입력해 주세요" class="pl-11 block w-full rounded-xl border border-slate-300 bg-white py-3.5 px-4 text-slate-900 placeholder-slate-400 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 focus:outline-none transition-all">
+                            </div>
+                        </div>
+
+                        <!-- Phone Field -->
+                        <div class="space-y-2">
+                            <label for="applicantPhone" class="text-sm font-extrabold text-slate-700 flex items-center gap-1.5">
+                                <span>전화번호</span>
+                                <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <input type="tel" id="applicantPhone" name="phone" required placeholder="010-0000-0000" class="pl-11 block w-full rounded-xl border border-slate-300 bg-white py-3.5 px-4 text-slate-900 placeholder-slate-400 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 focus:outline-none transition-all">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <!-- Residence Field -->
+                        <div class="space-y-2">
+                            <label for="applicantLocation" class="text-sm font-extrabold text-slate-700 flex items-center gap-1.5">
+                                <span>거주지</span>
+                                <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-map-location-dot"></i>
+                                </div>
+                                <input type="text" id="applicantLocation" name="location" required placeholder="시/군/구 단위를 적어주세요 (예: 부산 해운대구)" class="pl-11 block w-full rounded-xl border border-slate-300 bg-white py-3.5 px-4 text-slate-900 placeholder-slate-400 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 focus:outline-none transition-all">
+                            </div>
+                        </div>
+
+                        <!-- License Type Field -->
+                        <div class="space-y-2">
+                            <label for="licenseType" class="text-sm font-extrabold text-slate-700 flex items-center gap-1.5">
+                                <span>운전면허 종류</span>
+                                <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-id-card"></i>
+                                </div>
+                                <select id="licenseType" name="license" required class="pl-11 block w-full rounded-xl border border-slate-300 bg-white py-3.5 px-4 text-slate-900 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 focus:outline-none transition-all appearance-none cursor-pointer">
+                                    <option value="" disabled selected>면허 등급을 선택하세요</option>
+                                    <option value="1종 보통">1종 보통 면허</option>
+                                    <option value="1종 대형">1종 대형 면허</option>
+                                    <option value="2종 보통">2종 보통 면허</option>
+                                    <option value="특수면허">대형견인/트레일러 등 특수면허</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Career / Experience Field -->
+                    <div class="space-y-2">
+                        <label for="applicantCareer" class="text-sm font-extrabold text-slate-700 flex items-center gap-1.5">
+                            <span>간단한 경력 정보</span>
+                            <span class="text-slate-400 text-xs">(경력이 없는 초보자분도 환영합니다)</span>
+                        </label>
+                        <div class="relative">
+                            <textarea id="applicantCareer" name="career" rows="3" placeholder="예: 택배 배송 1년, 화물 배달 3년, 또는 '운송업 무경력 초보 지원자' 등 자유롭게 기입 가능" class="block w-full rounded-xl border border-slate-300 bg-white py-3.5 px-4 text-slate-900 placeholder-slate-400 focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 focus:outline-none transition-all"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Cargo Certificate Check (Radio Boxes) -->
+                    <div class="space-y-3">
+                        <label class="text-sm font-extrabold text-slate-700 flex items-center gap-1.5">
+                            <span>화물운송종사자 자격증 소지 여부</span>
+                            <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="grid sm:grid-cols-3 gap-4">
+                            <label class="flex items-center justify-between p-4 bg-white border border-slate-300 rounded-2xl cursor-pointer hover:bg-slate-100 transition-colors select-none">
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" name="cargoLicense" value="소지" required class="w-5 h-5 accent-brand-600">
+                                    <span class="font-bold text-slate-800">소지하고 있음</span>
+                                </div>
+                                <span class="text-xs text-brand-600 font-extrabold">즉시 가능</span>
+                            </label>
+                            
+                            <label class="flex items-center justify-between p-4 bg-white border border-slate-300 rounded-2xl cursor-pointer hover:bg-slate-100 transition-colors select-none">
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" name="cargoLicense" value="미소지" required class="w-5 h-5 accent-brand-600">
+                                    <span class="font-bold text-slate-800">미소지하고 있음</span>
+                                </div>
+                                <span class="text-xs text-amber-500 font-extrabold">일정 대행</span>
+                            </label>
+
+                            <label class="flex items-center justify-between p-4 bg-white border border-slate-300 rounded-2xl cursor-pointer hover:bg-slate-100 transition-colors select-none">
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" name="cargoLicense" value="예정" required class="w-5 h-5 accent-brand-600">
+                                    <span class="font-bold text-slate-800">자격 시험 예정자</span>
+                                </div>
+                                <span class="text-xs text-slate-400 font-extrabold">접수 완료</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Terms checkbox agreement -->
+                    <div class="flex items-start gap-3 pt-2">
+                        <input type="checkbox" id="termsAgree" required class="w-5 h-5 accent-brand-600 rounded mt-0.5 cursor-pointer">
+                        <label for="termsAgree" class="text-sm text-slate-600 select-none cursor-pointer">
+                            [필수] 파트너 물류 드라이버 지원 및 맞춤 상담을 위해 입력된 개인정보를 수집 및 이용하는 것에 동의합니다. (수집 항목: 성명, 연락처, 거주지 등)
+                        </label>
+                    </div>
+
+                    <!-- Error feedback notification placeholder (replaces block alerts) -->
+                    <div id="formErrorMessage" class="hidden p-4 bg-red-50 border border-red-200 text-red-700 text-sm font-bold rounded-2xl flex items-center gap-2">
+                        <i class="fa-solid fa-circle-exclamation text-lg"></i>
+                        <span id="formErrorText">전송 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.</span>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-4">
+                        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xl py-4.5 rounded-2xl transition duration-300 shadow-xl shadow-brand-500/20 hover:shadow-brand-500/35 flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>지원서 제출하기</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Accordion Section -->
+    <section class="py-24 bg-slate-50 border-t border-slate-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-brand-600 font-extrabold tracking-widest text-sm uppercase">FAQ</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2">기사님들이 가장 자주 묻는 질문</h2>
+                <p class="text-slate-600 text-lg mt-4">
+                    지원 전 궁금하신 핵심 사항들을 명쾌하게 답변해 드립니다.
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Accordion Q1 -->
+                <div class="border border-slate-200 bg-white rounded-2xl overflow-hidden transition-colors" id="faq-1">
+                    <button onclick="toggleFaq(1)" class="w-full flex items-center justify-between p-6 text-left font-bold text-slate-900 hover:bg-slate-50 transition-colors">
+                        <span>초보자 및 차량 미소지자도 드라이버 지원이 가능한가요?</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 transform transition-transform" id="faq-icon-1"></i>
+                    </button>
+                    <div class="hidden p-6 bg-slate-50 text-slate-600 border-t border-slate-100 leading-relaxed text-sm" id="faq-ans-1">
+                        네, 무관합니다. 면허 소지자시라면 경력이 아예 없으셔도 원격 가이드 매뉴얼 교육과 자격증 취득 지원 일정을 전부 체계적으로 안내해 드립니다. 차량을 보유하고 계시지 않은 분들도 인수금 부담 없이 장기 임대나 든든한 조건의 차량 배정 매칭이 준비되어 있습니다.
+                    </div>
+                </div>
+
+                <!-- Accordion Q2 -->
+                <div class="border border-slate-200 bg-white rounded-2xl overflow-hidden transition-colors" id="faq-2">
+                    <button onclick="toggleFaq(2)" class="w-full flex items-center justify-between p-6 text-left font-bold text-slate-900 hover:bg-slate-50 transition-colors">
+                        <span>기재된 예상 매출 계산 금액은 완벽한 보장이 가능한가요?</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 transform transition-transform" id="faq-icon-2"></i>
+                    </button>
+                    <div class="hidden p-6 bg-slate-50 text-slate-600 border-t border-slate-100 leading-relaxed text-sm" id="faq-ans-2">
+                        계산 결과는 대형 유통 협력 물류 데이터 평균 통계를 산출한 시뮬레이션입니다. 주유 단가, 고속 통행 비용의 유동성에 따라 공제 금액은 약간의 차이가 발생할 수 있으나, 파트너 물류의 최저 단가 안전 마진을 적용해 보수적으로 정산되어 수치 신뢰도가 대단히 높습니다.
+                    </div>
+                </div>
+
+                <!-- Accordion Q3 -->
+                <div class="border border-slate-200 bg-white rounded-2xl overflow-hidden transition-colors" id="faq-3">
+                    <button onclick="toggleFaq(3)" class="w-full flex items-center justify-between p-6 text-left font-bold text-slate-900 hover:bg-slate-50 transition-colors">
+                        <span>주 거주지가 부산이 아닌 타 지방이어도 지원이 가능한가요?</span>
+                        <i class="fa-solid fa-chevron-down text-slate-400 transform transition-transform" id="faq-icon-3"></i>
+                    </button>
+                    <div class="hidden p-6 bg-slate-50 text-slate-600 border-t border-slate-100 leading-relaxed text-sm" id="faq-ans-3">
+                        네, 타 권역 지원이 매우 적극적으로 가능합니다! 본사는 부산 센텀 해운대에 입점해 있으나, 배차 노선과 운수 지원 네트워크는 서울, 경기, 충청, 영호남까지 유기적인 인프라를 확보하고 있어 전국 어디나 거주지 인접 맞춤 코스를 추천해 안심하고 운행하실 수 있습니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-darkslate-900 text-slate-400 border-t border-slate-800">
+        <!-- Footer Contact Info Box -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid sm:grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="space-y-4">
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-black tracking-tight text-white">파트너 물류</span>
+                        <p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase -mt-1 font-poppins">Partner Logistics</p>
+                    </div>
+                </a>
+                <p class="text-sm text-slate-400 leading-relaxed">
+                    파트너 물류는 기사님 한 분과 정직하고 든든한 상생을 핵심 목표로 달립니다. 최고의 운수 환경 구축을 보증하겠습니다.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="text-white font-extrabold text-base mb-4">서비스 톤수 부문</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#services" class="hover:text-white transition-colors">1톤 라스트마일 소화물</a></li>
+                    <li><a href="#services" class="hover:text-white transition-colors">2.5톤 프랜차이즈 식자재</a></li>
+                    <li><a href="#services" class="hover:text-white transition-colors">5톤 장거리 윙바디 유통</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-extrabold text-base mb-4">고객센터 및 지원 문의</h4>
+                <ul class="space-y-2 text-sm text-slate-400">
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-phone text-brand-500"></i> <strong class="text-white">051-711-2311</strong></li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-envelope text-brand-500"></i> <span>contact@partnerlogistics.co.kr</span></li>
+                    <li class="flex items-center gap-2"><i class="fa-solid fa-clock text-brand-500"></i> <span>평일 09:00 - 18:00 (토/일 휴무)</span></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-extrabold text-base mb-4">본사 사무실 위치</h4>
+                <p class="text-sm leading-relaxed text-slate-400">
+                    부산광역시 해운대구 센텀중앙로 90,<br> 본동 2311호 (재송동, 큐비이센텀)<br>
+                    <a href="https://map.naver.com" target="_blank" class="text-brand-500 hover:underline mt-2 inline-block text-xs font-bold">네이버 지도에서 보기 →</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer legal information -->
+        <div class="bg-darkslate-950 py-8 text-xs text-slate-500 border-t border-slate-800/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="space-y-1 text-center md:text-left leading-relaxed">
+                    <p>상호: 파트너물류 | 대표자: 김용민 | 사업자등록번호: 881-28-01964 | 개업년월일: 2025년 08월 30일</p>
+                    <p>주소: 부산광역시 해운대구 센텀중앙로 90, 본동 2311호 (재송동, 큐비이센텀) | 업태: 서비스업 | 업종: 화물운송지원서비스, 광고 대행업</p>
+                </div>
+                <div class="text-center md:text-right flex flex-col gap-2">
+                    <p>&copy; 2026 Partner Logistics. All rights reserved.</p>
+                    <div class="flex justify-center md:justify-end gap-3 text-slate-600">
+                        <span class="hover:text-slate-400 cursor-pointer">이용약관</span>
+                        <span>|</span>
+                        <span class="hover:text-slate-400 cursor-pointer">개인정보처리방침</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Client Scripting -->
+    <script>
+        // State variables for calculations
+        let selectedVehicle = '1T';
+
+        // Set on load calculations
+        window.onload = function() {
+            calculateEstimates();
+        };
+
+        // Mobile Menu Toggling
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            toggleMenu();
+        });
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                menuIcon.className = 'fa-solid fa-bars text-2xl';
+            } else {
+                menuIcon.className = 'fa-solid fa-xmark text-2xl';
+            }
+        }
+
+        // Accordion Management
+        function toggleFaq(id) {
+            const answer = document.getElementById(`faq-ans-${id}`);
+            const icon = document.getElementById(`faq-icon-${id}`);
+            const container = document.getElementById(`faq-${id}`);
+
+            const isOpen = !answer.classList.contains('hidden');
+
+            if (isOpen) {
+                answer.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+                container.classList.remove('border-brand-500', 'bg-brand-50/10');
+            } else {
+                answer.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+                container.classList.add('border-brand-500', 'bg-brand-50/10');
+            }
+        }
+
+        // Active State Selection for Calculator
+        function calcSelectType(type) {
+            selectedVehicle = type;
+            const buttons = ['1T', '2.5T', '5T'];
+            
+            buttons.forEach(btn => {
+                const element = document.getElementById(`btn-${btn}`);
+                if (btn === type) {
+                    element.className = "py-3 px-4 bg-brand-600 border border-brand-500 text-white font-black rounded-2xl text-center transition-all";
+                } else {
+                    element.className = "py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-bold rounded-2xl text-center transition-all";
+                }
+            });
+
+            calculateEstimates();
+        }
+
+        // Estimator core calculation logic based on transportation coefficients
+        function calculateEstimates() {
+            const rangeDist = document.getElementById('rangeDist').value;
+            const rangeDays = document.getElementById('rangeDays').value;
+
+            document.getElementById('distDisplay').innerText = `${rangeDist} km`;
+            document.getElementById('daysDisplay').innerText = `${rangeDays} 일`;
+
+            // Average rate factors per KM & fixed base fees for cargo weights
+            let ratePerKm = 0;
+            let basePay = 0;
+            let deductionRatio = 0; // Average fuel/toll/taxes/insurance costs proportion
+
+            switch(selectedVehicle) {
+                case '1T':
+                    ratePerKm = 1100;
+                    basePay = 120000;
+                    deductionRatio = 0.28;
+                    break;
+                case '2.5T':
+                    ratePerKm = 1850;
+                    basePay = 210000;
+                    deductionRatio = 0.32;
+                    break;
+                case '5T':
+                    ratePerKm = 3100;
+                    basePay = 380000;
+                    deductionRatio = 0.35;
+                    break;
+            }
+
+            // Calculations
+            const grossPerDay = basePay + (rangeDist * ratePerKm * 0.45); // Standard dynamic logistics formula
+            const grossRevenueVal = Math.round((grossPerDay * rangeDays) / 10000); 
+            const deductionsVal = Math.round(grossRevenueVal * deductionRatio);
+            const netProfitVal = grossRevenueVal - deductionsVal;
+
+            // Formatted updates
+            document.getElementById('grossRevenue').innerText = `₩${grossRevenueVal.toLocaleString()} 만원`;
+            document.getElementById('deductions').innerText = `-₩${deductionsVal.toLocaleString()} 만원`;
+            document.getElementById('netProfit').innerText = netProfitVal.toLocaleString();
+        }
+
+        // Form Submission via Fetch directly to Formspree
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            // Validate Terms
+            const termsChecked = document.getElementById('termsAgree').checked;
+            if (!termsChecked) {
+                return;
+            }
+
+            const form = event.target;
+            const data = new FormData(form);
+            const errorBox = document.getElementById('formErrorMessage');
+            const errorText = document.getElementById('formErrorText');
+            
+            // Hide previous error state
+            errorBox.classList.add('hidden');
+
+            // Disable submit button and show loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnContent = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch animate-spin text-xl"></i> <span>전송 중...</span>';
+
+            // Post asynchronously to Formspree
+            fetch('https://formspree.io/f/xlgyzvkn', {
+                method: 'POST',
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Success Modal
+                    openAlert();
+                    form.reset();
+                } else {
+                    return response.json().then(data => {
+                        if (Object.prototype.hasOwnProperty.call(data, 'errors')) {
+                            throw new Error(data.errors.map(error => error.message).join(", "));
+                        } else {
+                            throw new Error("서버 전송에 실패하였습니다. 입력란을 다시 확인해 주세요.");
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                // Render error safely inside the form instead of triggering an iframe-breaking alert()
+                errorText.innerText = error.message || "네트워크 통신 오류가 발생했습니다. 잠시 후 다시 전송해 주세요.";
+                errorBox.classList.remove('hidden');
+            })
+            .finally(() => {
+                // Restore button state
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnContent;
+            });
+        }
+
+        // Custom alert controls
+        function openAlert() {
+            const customAlert = document.getElementById('customAlert');
+            const alertBox = document.getElementById('alertBox');
+            customAlert.classList.remove('opacity-0', 'pointer-events-none');
+            alertBox.classList.remove('scale-95');
+            alertBox.classList.add('scale-100');
+        }
+
+        function closeAlert() {
+            const customAlert = document.getElementById('customAlert');
+            const alertBox = document.getElementById('alertBox');
+            customAlert.classList.add('opacity-0', 'pointer-events-none');
+            alertBox.classList.remove('scale-100');
+            alertBox.classList.add('scale-95');
+        }
+    </script>
+</body>
+</html>
